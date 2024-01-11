@@ -33,10 +33,13 @@ public:
     void clear(){
         f = 0;
     }
-    void output(){
+    std ::vector<T> output(){
+        std :: vector <T> a;
         for(int i = 1 ; i <= size() ; i++){
             printf("%d  " , s[i].now);
+            a.push_back(s[i]);
         }
+        return a;
     }
 
 

@@ -10,6 +10,7 @@
 #include "Graph.h"
 #include "Way.h"
 #include "stack.h"
+#include "player.h"
 using std :: cin;
 using std :: cout;
 using std :: ifstream;
@@ -22,6 +23,7 @@ public:
     stack<state> process;//记录过去的状态
     state now_st;
     Way w;
+    player per;
     game(){
         is_play = 0;
         process.clear();
@@ -82,13 +84,15 @@ public:
         }else if(choice == 1){
             is_play = 1.;
             start_game();
-            play();
-            process.output();
+            int flag = play();
+            auto x = process.output();
+            if(flag)per.update(now_st.val , x);
             system("pause");
             system("cls");
         }
     }
-    void play(){
+private:
+    int play(){
         system("cls");
         process.push(now_st);
         if(now_st.hp <= 0){
@@ -101,18 +105,17 @@ public:
             }
             if(t == 1){
                 back();
-                play();
-                return;
+                return play();
             }else{
                 system("cls");
-                return;
+                return 0;
             }
         }
 
         if(now_st.now == gameMap.n - 1){
             printf("你现在位于%d ,有 %d HP , 财富累计 %d\n", now_st.now,now_st.hp,now_st.val);
             printf("恭喜通关");
-            return;
+            return 1;
         }
         printf("你现在位于%d ,有 %d HP , 财富累计 %d\n", now_st.now,now_st.hp,now_st.val);
         printf("下面可去的点有:");
@@ -125,7 +128,7 @@ public:
         int to;
         cin>>to;
         while(find(x.begin(), x.end() , to) == x.end()){
-            if(to == -1) return;
+            if(to == -1) return 0;
             if(to == -2 && process.size() > 1){
                 break;
             }
@@ -134,9 +137,8 @@ public:
         }
         if(to == -2) back();
         else move(to);
-        play();
+        return play();
     }
-
     void move(int to){
         now_st.hp = now_st.hp - gameMap.matrix[now_st.now][to];
         now_st.val = (!now_st.vis[to]) ? gameMap.v_val[to] + now_st.val : now_st.val;

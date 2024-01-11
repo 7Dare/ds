@@ -4,7 +4,6 @@
 
 #ifndef DS_WORK_STATE_H
 #define DS_WORK_STATE_H
-
 class state {
 public:
     int now;//记录在哪个点
