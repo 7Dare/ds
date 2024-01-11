@@ -19,7 +19,7 @@ public:
         now = 0;
         val = 0;
         hp = 100;
-        for(int i = 0 ; i <= 100 ; i++) vis[i] = 0;
+        for(int i = 0 ; i < 100 ; i++) vis[i] = 0;
         vis[0] = 1;
     }
 
