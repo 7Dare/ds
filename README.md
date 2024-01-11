@@ -21,3 +21,5 @@
 排了一下头文件，同时做了一下回退功能
 
 把stl的部分去掉了一点，剩下vector , pair , queue , stack
+
+手写了个简易的stack，虽然比较蠢
